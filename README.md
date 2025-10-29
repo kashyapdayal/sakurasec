@@ -1,85 +1,106 @@
-SakuraSec Login Challenge: The Silent Clue (CTF)
+# SakuraSec Login Challenge: The Silent Clue (CTF)
 
-# Challenge Goal
+A client-side web challenge focused on encoded secrets and timing-based analysis, culminating in access to a hidden Admin Panel.
 
-This challenge is a test of low-level web application analysis, focusing on client-side secrets and timing vulnerabilities. The primary objective is to successfully gain access to the hidden Admin Panel.
+## Goal
 
-This requires two key phases:
+- Identify the hidden username using client-side storage analysis and decoding.
+- Discover the password via a timing side‑channel using an interceptor/fuzzer, then log in to reach the Admin Panel.
 
-Discover the Username: The required username is concealed on the client-side using a common encoding method.
+## Setup
 
-Discover the Password: The password must be found through a systematic brute-force, exploiting a subtle, built-in application weakness.
+- Static hosting supported: GitHub Pages, Netlify, or a local static server.
+- Tools:
+  - A modern web browser.
+  - A web proxy with interception and automation (e.g., Burp Suite Community/Pro or OWASP ZAP).
 
-# Setup and Environment
+Live deployment: see this repository’s Pages site in your repo settings once enabled on the default branch’s root or docs folder.
 
-This challenge is designed to run as a static web application (e.g., hosted on GitHub Pages, Netlify, or a local server).
+## Challenge Flow
 
-Prerequisites
+1) Find the encoded username from client-side state and request flow.
+2) Brute-force the password using a timing signal exposed by the app logic; sort results by response time, not HTTP status.
 
-A web browser.
+***
 
-A proxy tool capable of interception and automated attacks (e.g., Burp Suite or OWASP ZAP).
+## Phase 1 — Encoded Username (Cookie Analysis)
 
-Deployment
+Context
 
-This challenge is hosted on GitHub Pages: https://github.com/kashyapdayal/sakurasec
+- The application sets a cookie before issuing a network “probe” during login, and the username is Base64-encoded in that cookie value.
 
-# The Challenge Details (Hints)
+Steps
 
-Step 1: Finding the Encoded Username (Cookie Analysis)
+- Submit any throwaway credentials on the Login page to trigger the probe.
+- Intercept the POST /probe request with your proxy.
+- Inspect Request Headers → Cookie → find user=[ENCODED_VALUE].
+- Base64-decode the value to reveal the username: [ENCODED_VALUE] → [REDACTED_USER].
 
-The correct username is [REDACTED_USER]. It is not stored in the visible, minified JavaScript but is Base64-encoded and placed into a browser storage location before a network probe is executed.
+Hints
 
-Task:
+- If you miss it in the request, check the browser’s Application/Storage tab for Cookies or try DOM inspection to confirm when the cookie is set client-side.
+- Ensure your proxy captures browser-origin traffic and that intercept is on before clicking “Sign in”.
 
-Attempt a login with any throwaway credentials.
+Deliverable
 
-Intercept the POST /probe request using your proxy tool.
+- The decoded username string [REDACTED_USER] (keep it private to maintain challenge integrity).
 
-Analyze the Request Headers. A critical piece of information is stored in the Cookie header. Look for the cookie named user=.
+***
 
-Decode the Base64 string found in the cookie to retrieve the plain text username: [ENCODED_VALUE] → [REDACTED_USER].
+## Phase 2 — Password via Timing Attack
 
-Step 2: Finding the Password ([REDACTED_PASS]) (Timing Attack)
+Premise
 
-Once the username is identified, the next step is to find the corresponding password.
+- The client logic introduces different delays depending on match conditions, creating a measurable timing side-channel for password discovery even on a static host.
 
-Challenge Vulnerability: The application logic contains a client-side Timing Attack vulnerability built into the success validation delay.
+Timing Model
 
-Condition
+- Full Success (username AND password correct): immediate redirect (fastest).
+- Success Condition Match (username correct): ~120 ms.
+- Failure Condition Match (username incorrect): ~220 ms.
 
-Delay in app.js
+Instructions
 
-Transaction Speed
+- Configure your proxy’s Intruder/Fuzzer:
+  - Target the login POST with the fixed username discovered in Phase 1.
+  - Set the password field as the payload position and supply a wordlist.
+- Important: The static server may return 405 or other non-2xx codes; ignore HTTP status and use “Response Received Time” or “Total Time” as the discriminator when reviewing results.
+- Sort the results by shortest time; the fastest response correlates with the correct password [REDACTED_PASS] and triggers the client-side redirect when used in the browser.
 
-Full Success (Username AND Password are correct)
+Tips
 
-N/A (Immediate Redirect)
+- Keep the proxy running and avoid background network noise while testing, to reduce jitter.
+- Run multiple passes or repeat top candidates to confirm the timing gap consistently stands out.
 
-Fastest
+Deliverable
 
-Success Condition Match (e.g., correct username)
+- The discovered password [REDACTED_PASS] (do not publish; preserve the challenge).
 
-120ms
+***
 
-Shorter
+## Login Validation and Admin Panel
 
-Failure Condition Match (e.g., incorrect username)
+- After you have both the username and password, log in through the UI.
+- On full match, the page redirects to admin/panel.html, confirming success.
 
-220ms
+***
 
-Longer
+## Hosting Notes
 
-Task:
+- GitHub Pages:
+  - Prefer relative asset paths like href="assets/style.css" at repo root and ../assets/style.css in subfolders to avoid broken CSS on Project Pages (username.github.io/repo).
+  - Case sensitivity matters: assets/style.css is different from Assets/Style.css.
+- If CSS appears missing, verify the stylesheet URL returns 200 OK and Content-Type: text/css; 404s often show up as text/html and cause “stylesheet not loaded” warnings in DevTools.
 
-Configure your proxy tool's Intruder/Fuzzer using the now-known username.
+***
 
-Target the password field with a wordlist.
+## Learning Objectives
 
-Crucial: Since the static server rejects the POST request with a 405 error, ignore the HTTP Status Code. Instead, sort the Intruder results by the Response Received Time.
+- Recognize client-side secret exposure and common encodings like Base64 in storage and headers.
+- Execute a practical timing attack workflow using sorter-by-time fuzzing in a proxy tool, independent of HTTP status codes.
 
-The payload that corresponds to the shortest transaction time will reveal the correct password: [REDACTED_PASS].
+***
 
-Success
+## Ethical Use
 
-Successfully logging in with the discovered credentials will validate the input in the browser and redirect the user to the admin/panel.html page.
+- Use strictly in controlled training environments with consent. Do not deploy such patterns in production apps; consult modern authentication hardening guidance and rate-limiting best practices for real-world systems.
