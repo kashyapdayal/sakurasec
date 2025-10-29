@@ -1,0 +1,3 @@
+Contact: mailto:sec-acme@example.com
+Policy: This training site is intentionally vulnerable for educational purposes.
+Acknowledgments: Thanks to learners.

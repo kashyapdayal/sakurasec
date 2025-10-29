@@ -1,0 +1,4 @@
+- Migrate from legacy_auth_v1
+- Rate limiting per IP/username
+- Hide debug meta headers
+- Replace predictable CSRF

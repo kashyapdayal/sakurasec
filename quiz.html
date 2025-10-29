@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>SakuraSec — Quiz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="assets/style.css" rel="stylesheet" />
+</head>
+<body class="anime-body">
+  <div class="page">
+    <header class="site-header container">
+      <div class="brand"><h1>SakuraSec</h1></div>
+      <nav class="main-nav"><a href="index.html">Home</a> <a href="login.html">Login</a></nav>
+    </header>
+
+    <main class="container">
+      <section class="card">
+        <h2>Cybersecurity Quiz</h2>
+        <form id="quizForm">
+          <ol>
+            <li>
+              <p>Why is storing sensitive identity data directly in cookies dangerous?</p>
+              <label><input type="radio" name="q1" value="a"> Because cookies are always encrypted</label><br>
+              <label><input type="radio" name="q1" value="b"> Because cookies can be read or manipulated on the client</label><br>
+              <label><input type="radio" name="q1" value="c"> Because cookies never expire</label>
+            </li>
+
+            <li>
+              <p>What does directory discovery typically rely on?</p>
+              <label><input type="radio" name="q2" value="a"> Only DNS records</label><br>
+              <label><input type="radio" name="q2" value="b"> Guessing/automation, robots.txt, and server responses</label><br>
+              <label><input type="radio" name="q2" value="c"> CPU speed</label>
+            </li>
+
+            <li>
+              <p>When using Burp or an intercepting proxy for this lab, what should you keep in mind?</p>
+              <label><input type="radio" name="q3" value="a"> Only intercept traffic for systems you own or have permission to test</label><br>
+              <label><input type="radio" name="q3" value="b"> Use it on production sites without notice</label><br>
+              <label><input type="radio" name="q3" value="c"> Always leak credentials publicly</label>
+            </li>
+          </ol>
+
+          <div style="margin-top:12px;">
+            <button type="submit" class="cta">Submit Answers</button>
+            <button type="button" id="btnReset" class="sec">Reset</button>
+          </div>
+
+          <div id="quizResult" style="margin-top:12px;"></div>
+        </form>
+      </section>
+    </main>
+
+    <footer class="site-footer container"><small>© 2025 SakuraSec — For learning only.</small></footer>
+  </div>
+
+  <script>
+    document.getElementById('quizForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      const a1 = document.querySelector('input[name="q1"]:checked')?.value;
+      const a2 = document.querySelector('input[name="q2"]:checked')?.value;
+      const a3 = document.querySelector('input[name="q3"]:checked')?.value;
+      let score = 0;
+      if(a1 === 'b') score++;
+      if(a2 === 'b') score++;
+      if(a3 === 'a') score++;
+      document.getElementById('quizResult').innerHTML = `<p class="muted">You scored ${score}/3. Correct answers: 1:b, 2:b, 3:a</p>`;
+    });
+    document.getElementById('btnReset').addEventListener('click', function(){ document.getElementById('quizForm').reset(); document.getElementById('quizResult').textContent = ''; });
+  </script>
+</body>
+</html>

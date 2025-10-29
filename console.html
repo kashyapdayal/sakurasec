@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>SakuraSec — Console</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="assets/style.css" rel="stylesheet" />
+</head>
+<body class="anime-body">
+  <div class="page">
+    <header class="site-header container"><div class="brand"><h1>SakuraSec Console</h1></div></header>
+
+    <main class="container">
+      <section class="card">
+        <h2>Browser Storage Inspector</h2>
+        <p class="muted">This page helps students inspect cookies, localStorage and sessionStorage in a safe environment.</p>
+
+        <h4>Cookies</h4>
+        <pre id="cookies"></pre>
+
+        <h4>localStorage</h4>
+        <pre id="ls"></pre>
+
+        <h4>sessionStorage</h4>
+        <pre id="ss"></pre>
+
+        <div style="margin-top:12px;">
+          <button id="refresh" class="cta">Refresh</button>
+          <button id="clearAll" class="sec">Clear All (cookies & storage)</button>
+        </div>
+
+        <p class="muted small">Note: clearing cookies here will remove the demo user cookie.</p>
+      </section>
+    </main>
+
+    <footer class="site-footer container"><small>© 2025 SakuraSec</small></footer>
+  </div>
+
+  <script>
+    function render(){
+      document.getElementById('cookies').textContent = document.cookie || '(no cookies)';
+      document.getElementById('ls').textContent = JSON.stringify(localStorage, null, 2) || '{}';
+      document.getElementById('ss').textContent = JSON.stringify(sessionStorage, null, 2) || '{}';
+    }
+    document.getElementById('refresh').addEventListener('click', render);
+    document.getElementById('clearAll').addEventListener('click', function(){
+      localStorage.clear();
+      sessionStorage.clear();
+      // clear cookies by setting expiry
+      document.cookie.split(';').forEach(c => {
+        const name = c.split('=')[0].trim();
+        document.cookie = name + '=; path=/; max-age=0';
+      });
+      render();
+    });
+    render();
+  </script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /secret/
+Disallow: /backup/
+Disallow: /old-config/
+
+# NOTE (for students): robots.txt is a hint, not an access control. Use only in your lab.

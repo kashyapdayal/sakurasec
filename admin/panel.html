@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SakuraSec — Instructor Panel</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+
+  <!-- Minimal, non-conflicting panel overrides -->
+  <style>
+    /* Keep background visible and center the card */
+    body.admin-page {
+      min-height: 100vh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      background: transparent;
+      overflow: visible;
+    }
+    /* Glass card tuned; background handled via style.css */
+    main.container.admin-card {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 1rem;
+      padding: 2rem 2.5rem;
+      width: min(90%, 640px);
+      text-align: center;
+      backdrop-filter: saturate(150%) brightness(110%) contrast(90%) blur(2px);
+      animation: fadeIn 1s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+
+<body class="admin-page">
+  <!-- Full Background Layer (uses shared classes) -->
+  <div class="admin-bg" aria-hidden="true">
+    <img class="admin-bg-img" src="../assets/reze_admin.webp" alt="SakuraSec Instructor Panel Background">
+    <div class="bg-overlay"></div>
+  </div>
+
+  <!-- Floating Panel -->
+  <main class="container admin-card">
+    <h2>Instructor Panel 🌸</h2>
+    <div id="gate" class="panel-body"></div>
+
+    <footer>
+      <p class="muted"><a href="../index.html">← Back to home</a> | © 2025 SakuraSec Labs</p>
+    </footer>
+  </main>
+
+  <script>
+    // ====== SakuraSec Instructor Panel Logic ======
+    (function(){
+      const gate = document.getElementById('gate');
+      const token = sessionStorage.getItem('sakura_token_v1');
+
+      if (!token) return denyAccess();
+
+      const attempts = JSON.parse(localStorage.getItem('cyberlearn_login_attempts_v1') || '[]');
+
+      // Decode cookie set by login (if you used base64). If you used the +3 hex shift encoder,
+      // this will show "(invalid encoding)" which is fine for display; username comes from session.
+      const username = sessionStorage.getItem('sakura_user') || decodeUserCookie('user') || '(guest)';
+      renderPanel(username, attempts);
+
+      // ====== Functions ======
+      function renderPanel(user, attempts) {
+        const log = attempts.length
+          ? attempts.map(a => `${a.t} — ${a.u} ${a.p} ok=${a.ok}`).join('\n')
+          : 'No login attempts found.';
+
+        gate.innerHTML = `
+          <p class="congrats">🎉 Welcome <strong>${escapeHtml(user)}</strong> — Instructor Access Granted</p>
+          <p class="muted">Client-side demo only. In production, this check should be server-side.</p>
+
+          <section class="card small">
+            <h4>🧾 Recent Login Attempts</h4>
+            <pre>${escapeHtml(log)}</pre>
+          </section>
+
+          <button id="btnClearAll">Reset Lab Data</button>
+        `;
+
+        document.getElementById('btnClearAll').addEventListener('click', resetLab);
+      }
+
+      function denyAccess() {
+        gate.innerHTML = `
+          <p class="muted">🚫 Access Denied. Please <a href="../login.html">login</a> to access the panel.</p>
+        `;
+      }
+
+      function decodeUserCookie(name) {
+        const cookie = document.cookie.split('; ').find(row => row.startsWith(name + '='));
+        if (!cookie) return null;
+        try { return atob(cookie.split('=')[1]); }
+        catch { return '(invalid encoding)'; }
+      }
+
+      function resetLab() {
+        if (!confirm("Reset all session and storage data?")) return;
+        localStorage.removeItem('cyberlearn_login_attempts_v1');
+        sessionStorage.removeItem('sakura_token_v1');
+        sessionStorage.removeItem('sakura_user');
+        document.cookie = 'user=; path=/; max-age=0';
+        location.reload();
+      }
+
+      function escapeHtml(str) {
+        return String(str).replace(/[&<>"']/g, c => ({
+          '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'
+        }[c]));
+      }
+    })();
+  </script>
+</body>
+</html>
