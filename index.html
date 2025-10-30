@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>SakuraSec — Anime Cybersecurity Lab</title>
+  <title>SakuraSec — Anime Cybersecurity Lab & Store</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <link href="assets/style.css" rel="stylesheet" />
   <style>
-    /* --- Enhancements for clarity, transitions, and structure --- */
+    /* --- kept original variables & effects --- */
     :root {
       --accent1:#06b6d4;
       --accent2:#8b5cf6;
@@ -16,7 +16,7 @@
     }
 
     /* Smooth fade + scale transitions for everything */
-    * { transition: all 0.3s ease; }
+    * { transition: all 0.3s ease; box-sizing: border-box; }
 
     /* Reze background clarity tweaks */
     .wall-video {
@@ -36,6 +36,9 @@
       border-radius: 16px;
       padding: 24px;
       color: #eaf7ff;
+      text-align: center;
+      margin: 100px auto 40px;
+      max-width: 920px;
     }
 
     h2, h3, h4 {
@@ -94,7 +97,7 @@
       transform:translateX(0);
     }
 
-    /* Slide panels (clarity, motion) */
+    /* Slide panels (clarity, motion) - original */
     .panel-container {
       position:fixed; top:0; right:0;
       height:100vh; width:0; overflow:hidden;
@@ -141,119 +144,275 @@
       margin:40px 0;
       text-shadow:0 2px 10px rgba(6,182,212,0.15);
     }
-  </style>
-<style>
-/* Frosted-glass Reze header fix — left brand / right nav */
-.enhanced-header {
-  position: relative;
-  z-index: 3;
-  width: 96%;
-  margin: 20px auto;
-  border-radius: 18px;
-  padding: 14px 28px;
-  background: rgba(8,14,26,0.45);
-  backdrop-filter: blur(14px) saturate(1.3);
-  border: 1px solid rgba(255,255,255,0.06);
-  box-shadow: 0 10px 40px rgba(2,6,23,0.6);
-  transition: background 0.3s ease, transform 0.3s ease;
-}
-.enhanced-header:hover {
-  background: rgba(8,14,26,0.55);
-  transform: translateY(-2px);
-}
 
-.header-inner-fixed {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;  /* ✅ brand left, nav right */
-  flex-wrap: nowrap;
-  width: 100%;
-}
+    /* Frosted-glass Reze header (kept) */
+    .enhanced-header {
+      position: relative;
+      z-index: 3;
+      width: 96%;
+      margin: 20px auto;
+      border-radius: 18px;
+      padding: 14px 28px;
+      background: rgba(8,14,26,0.45);
+      backdrop-filter: blur(14px) saturate(1.3);
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: 0 10px 40px rgba(2,6,23,0.6);
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+.enhanced-header:hover { background: rgba(8,14,26,0.55); transform: translateY(-2px); } .header-inner-fixed { display: flex; align-items: center; justify-content: space-between; /* ✅ brand left, nav right */ flex-wrap: nowrap; width: 100%; } /* --- Brand (Left) --- */ .brand { flex-shrink: 0; } .brand-title { margin: 0; font-size: 24px; font-weight: 700; color: #fff; letter-spacing: 0.5px; text-shadow: 0 0 10px rgba(139,92,246,0.25), 0 0 25px rgba(6,182,212,0.25); } .tagline { margin: 2px 0 0 0; color: #bcd6e8; font-size: 13px; } .brand-accent { height: 3px; width: 60px; background: linear-gradient(90deg, #06b6d4, #8b5cf6); border-radius: 3px; margin-top: 6px; box-shadow: 0 0 10px rgba(139,92,246,0.4); } /* --- Navigation (Right) --- */ .right-side-nav { display: flex; justify-content: flex-end; align-items: center; gap: 28px; flex-wrap: wrap; margin-left: auto; /* ✅ push to far right */ } .nav-link { position: relative; text-decoration: none; font-weight: 600; color: #dbefff; transition: color 0.3s ease, transform 0.3s ease; } .nav-link::after { content: ""; position: absolute; bottom: -4px; left: 0; height: 2px; width: 0%; background: linear-gradient(90deg, #06b6d4, #8b5cf6); border-radius: 2px; transition: width 0.3s ease; } .nav-link:hover { color: #fff; transform: translateY(-1px); } .nav-link:hover::after, .nav-link.active::after { width: 100%; } .nav-link.active { color: #fff; text-shadow: 0 0 10px rgba(6,182,212,0.25); } /* --- Responsive --- */ @media (max-width: 720px) { .enhanced-header { width: 94%; padding: 12px 16px; } .header-inner-fixed { flex-direction: column; align-items: flex-start; gap: 10px; } .right-side-nav { justify-content: flex-start; gap: 14px; margin-left: 0; } } #trickLogin { position: relative; transition: transform .05s ease; cursor: not-allowed; user-select: none; pointer-events: auto; }
 
-/* --- Brand (Left) --- */
-.brand {
-  flex-shrink: 0;
-}
-.brand-title {
-  margin: 0;
-  font-size: 24px;
+    /* --- SHOP STYLES (new) --- */
+    .shop-wrap { width: 94%; margin: 20px auto 80px; max-width: 1200px; }
+    .shop-controls { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:18px; }
+    .search { background: rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.04); padding:8px 12px; border-radius: 10px; color:#eaf7ff; width:280px; }
+    .shop-grid {
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+    .product-card {
+      background: rgba(8,14,26,0.45);
+      border: 1px solid rgba(255,255,255,0.05);
+      backdrop-filter: blur(12px);
+      border-radius: 16px;
+      padding: 14px;
+      box-shadow: 0 8px 30px rgba(2,6,23,0.6);
+      text-align: center;
+      color: #eaf7ff;
+      display:flex; flex-direction:column;
+    }
+    .product-card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+    .product-card h4 { margin: 6px 0 4px; font-size: 16px; }
+    .product-card p { font-size: 13px; color: #bcd6e8; margin: 0 0 8px; flex: 1; }
+    .price { font-weight: 700; color: var(--accent1); margin: 6px 0; }
+    .add-btn {
+      background: linear-gradient(90deg,var(--accent1),var(--accent2));
+      color: #021024; border: none; padding: 8px 12px;
+      border-radius: 10px; cursor: pointer; font-weight: 600;
+      margin-top: 6px;
+    }
+
+    .add-btn:hover { transform: translateY(-2px) scale(1.03); }
+
+  /* Cart popup overlay (backdrop) */
+    .cart-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.65);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .cart-overlay.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Cart drawer - centered popup */
+    .cart-drawer {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.92);
+      width: min(66vw, 720px);
+      max-height: 66vh;
+      background: linear-gradient(135deg, rgba(8,14,26,0.97), rgba(15,23,42,0.97));
+      backdrop-filter: blur(20px);
+      color: #eaf7ff;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(139,92,246,0.1);
+      padding: 24px;
+      z-index: 1100;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      display: flex;
+      flex-direction: column;
+    }
+    .cart-drawer.open {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    /* Close button */
+    .cart-close {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      font-size: 20px;
+      cursor: pointer;
+      color: #bcd6e8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+    .cart-close:hover {
+      background: rgba(239,68,68,0.15);
+      border-color: rgba(239,68,68,0.3);
+      color: #ff6b6b;
+      transform: rotate(90deg) scale(1.05);
+    }
+
+    /* Cart header */
+    .cart-drawer h4 {
+      margin: 0 0 16px 0;
+      font-size: 22px;
+      font-weight: 700;
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Scrollable cart items */
+    .cart-items {
+      flex: 1;
+      overflow-y: auto;
+      margin: 8px 0;
+      padding-right: 8px;
+      min-height: 120px;
+    }
+    .cart-items::-webkit-scrollbar { width: 6px; }
+    .cart-items::-webkit-scrollbar-track { background: rgba(255,255,255,0.02); border-radius: 10px; }
+    .cart-items::-webkit-scrollbar-thumb { background: rgba(6,182,212,0.3); border-radius: 10px; }
+    .cart-items::-webkit-scrollbar-thumb:hover { background: rgba(6,182,212,0.5); }
+
+    .cart-item {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px;
+      margin-bottom: 10px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 12px;
+      transition: all 0.2s ease;
+    }
+    .cart-item:hover {
+      background: rgba(255,255,255,0.05);
+      border-color: rgba(6,182,212,0.2);
+      transform: translateX(4px);
+    }
+    .cart-item .meta { display: flex; gap: 12px; align-items: center; flex: 1; }
+    .cart-item img {
+      width: 56px;
+      height: 56px;
+      object-fit: cover;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .qty-controls {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      background: rgba(255,255,255,0.04);
+      padding: 4px;
+      border-radius: 10px;
+    }
+    .small-btn {
+      background: rgba(6,182,212,0.15);
+      border: 1px solid rgba(6,182,212,0.2);
+      padding: 6px 10px;
+      border-radius: 8px;
+      color: #06b6d4;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+    .small-btn:hover {
+      background: rgba(6,182,212,0.25);
+      transform: scale(1.05);
+    }
+
+    /* Cart summary */
+    #cartSummary {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 2px solid rgba(255,255,255,0.08);
+    }
+
+    .checkout {
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      border: none;
+      padding: 14px 18px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 12px;
+      color: #021024;
+      box-shadow: 0 4px 15px rgba(6,182,212,0.3);
+      transition: all 0.3s ease;
+    }
+    .checkout:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(6,182,212,0.4);
+    }
+    .checkout:active {
+      transform: translateY(0);
+    }
+
+    .empty {
+      color: #99bcd6;
+      padding: 32px 16px;
+      text-align: center;
+      font-size: 15px;
+    }
+
+    @media (max-width: 720px) {
+      .cart-drawer {
+        width: 92vw;
+        max-height: 75vh;
+      }
+      .hero-card { margin: 80px 12px 24px; }
+    }
+    /* ✅ Floating Cart Button */
+.cart-toggle {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  background: linear-gradient(90deg, var(--accent1), var(--accent2));
+  color: #021024;
   font-weight: 700;
-  color: #fff;
-  letter-spacing: 0.5px;
-  text-shadow: 0 0 10px rgba(139,92,246,0.25), 0 0 25px rgba(6,182,212,0.25);
-}
-.tagline {
-  margin: 2px 0 0 0;
-  color: #bcd6e8;
-  font-size: 13px;
-}
-.brand-accent {
-  height: 3px;
-  width: 60px;
-  background: linear-gradient(90deg, #06b6d4, #8b5cf6);
-  border-radius: 3px;
-  margin-top: 6px;
-  box-shadow: 0 0 10px rgba(139,92,246,0.4);
+  border: none;
+  padding: 12px 18px;
+  border-radius: 14px;
+  box-shadow: 0 6px 22px rgba(6,182,212,0.4);
+  cursor: pointer;
+  z-index: 1200;
+  font-size: 16px;
+  transition: all 0.3s ease;
 }
 
-/* --- Navigation (Right) --- */
-.right-side-nav {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 28px;
-  flex-wrap: wrap;
-  margin-left: auto; /* ✅ push to far right */
-}
-.nav-link {
-  position: relative;
-  text-decoration: none;
-  font-weight: 600;
-  color: #dbefff;
-  transition: color 0.3s ease, transform 0.3s ease;
-}
-.nav-link::after {
-  content: "";
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  height: 2px;
-  width: 0%;
-  background: linear-gradient(90deg, #06b6d4, #8b5cf6);
-  border-radius: 2px;
-  transition: width 0.3s ease;
-}
-.nav-link:hover {
-  color: #fff;
-  transform: translateY(-1px);
-}
-.nav-link:hover::after,
-.nav-link.active::after {
-  width: 100%;
-}
-.nav-link.active {
-  color: #fff;
-  text-shadow: 0 0 10px rgba(6,182,212,0.25);
+.cart-toggle:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 26px rgba(6,182,212,0.5);
 }
 
-/* --- Responsive --- */
-@media (max-width: 720px) {
-  .enhanced-header {
-    width: 94%;
-    padding: 12px 16px;
-  }
-  .header-inner-fixed {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-  .right-side-nav {
-    justify-content: flex-start;
-    gap: 14px;
-    margin-left: 0;
-  }
+.cart-toggle:active {
+  transform: scale(0.97);
 }
-</style>
+
+  </style>
 </head>
 <body class="anime-body">
   <!-- Background video -->
@@ -266,25 +425,79 @@
     <div class="wallpaper-overlay"></div>
   </div>
 
-<div class="page">
-  <header class="site-header enhanced-header">
-    <div class="header-inner-fixed">
-      <div class="brand">
-        <h1 class="brand-title">SakuraSec</h1>
-        <p class="tagline">Where Anime Spirit Meets Cyber Defense</p>
-        <div class="brand-accent"></div>
-      </div>
+  <div class="page">
+    <header class="site-header enhanced-header">
+      <div class="header-inner-fixed">
+        <div class="brand">
+          <h1 class="brand-title">SakuraSec</h1>
+          <p class="tagline">Where Anime Spirit Meets Cyber Defense</p>
+          <div class="brand-accent" style="height:3px;width:60px;background:linear-gradient(90deg,#06b6d4,#8b5cf6);border-radius:3px;margin-top:6px;"></div>
+        </div>
 
-      <nav class="main-nav right-side-nav">
-        <a href="index.html" class="nav-link active">Home</a>
-        <a href="login.html" class="nav-link">Login</a>
-        <a href="quiz.html" class="nav-link">Quiz</a>
-        <a href="console.html" class="nav-link">Console</a>
-      </nav>
+        <nav class="main-nav right-side-nav">
+          <a href="index.html" class="nav-link active">Home</a>
+          <!-- LOGIN BUTTON TRICK LEFT INTACT (unreachable behaviour preserved) -->
+          <a href="index.html" id="trickLogin" class="nav-link" aria-label="Login">Login</a>
+          <a href="quiz.html" class="nav-link">Quiz</a>
+          <a href="console.html" class="nav-link">Console</a>
+        </nav>
+      </div>
+    </header>
+  </div>
+
+  <section class="hero-card">
+    <h2>SakuraSec Store</h2>
+    <p class="muted">Keep the aesthetics — now buy soft merch inspired by the Reze universe and cyber guardians.</p>
+    <div style="margin-top:12px;">
+      <a class="cta" href="Login.html">Shop Now</a>
     </div>
-  </header>
-</div>
-  <!-- Tabs -->
+  </section>
+
+  <!-- SHOP AREA -->
+  <main class="shop-wrap" id="shop">
+    <div class="shop-controls">
+      <input class="search" id="searchBox" placeholder="Search merch (e.g., hoodie, sticker)" />
+      <div style="display:flex;gap:8px;align-items:center;">
+        <select id="sortBy" style="background:rgba(255,255,255,0.03);color:#eaf7ff;border:1px solid rgba(255,255,255,0.03);padding:8px;border-radius:8px;">
+          <option value="default">Sort: Featured</option>
+          <option value="price-asc">Price: Low → High</option>
+          <option value="price-desc">Price: High → Low</option>
+        </select>
+      </div>
+    </div>
+
+    <section class="shop-grid" id="productGrid">
+      <!-- Template product cards injected by JS for easier editing -->
+    </section>
+  </main>
+
+  <!-- CART TOGGLE 
+   & DRAWER -->
+  <div class="cart-toggle" id="cartToggle">🛒 Cart (<span id="cartCount">0</span>)</div>
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-hidden="true">
+    <button class="cart-close" id="cartClose" aria-label="Close cart">✕</button>
+    <h4>Your Cart</h4>
+    <div class="cart-items" id="cartItems"></div>
+    <div id="cartSummary" style="margin-top:8px;">
+      <div style="display:flex;justify-content:space-between;">
+        <div class="muted">Subtotal</div>
+        <div id="cartSubtotal">₹0</div>
+      </div>
+      <div style="display:flex;justify-content:space-between;margin-top:6px;">
+        <div class="muted">Shipping</div>
+        <div id="cartShipping">₹0</div>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-weight:700;margin-top:8px;">
+        <div>Total</div>
+        <div id="cartTotal">₹0</div>
+      </div>
+      <button class="checkout" id="checkoutBtn">Mock Checkout</button>
+      <div style="margin-top:8px;font-size:12px;color:#9fcbe9;">(This demo does not send payments — it simulates a checkout.)</div>
+    </div>
+  </aside>
+
+  <!-- Floating Tabs (original) -->
   <div class="tab-rail">
     <button class="tab" data-tab="lessons" title="Anime Security Lessons">R</button>
     <button class="tab" data-tab="discovery" title="Directory Discovery">E</button>
@@ -292,7 +505,7 @@
     <button class="tab" data-tab="quotes" title="Quotes & Ethics">E</button>
   </div>
 
-  <!-- Slide panel -->
+  <!-- Slide panel (original structure) -->
   <div class="panel-container" id="panelContainer">
     <aside class="panel" id="panel">
       <div style="display:flex; justify-content:space-between; align-items:center;">
@@ -303,16 +516,64 @@
     </aside>
   </div>
 
+  <footer>
+    © 2025 SakuraSec — Anime Cybersecurity Merch. Built with luf and Defense-in-Depth.
+  </footer>
+
   <script>
-    // Smooth parallax background motion
+    /* ---------------------------
+       Trick login logic (UNCHANGED)
+       --------------------------- */
+    (() => {
+      const btn = document.getElementById('trickLogin');
+      if (!btn) return;
+      const boundsPad = 12;
+      let tries = 0;
+
+      function move(x, y){
+        const vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+        const vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+        const nx = Math.min(vw - boundsPad, Math.max(boundsPad, x + (Math.random()*220 - 110)));
+        const ny = Math.min(vh - boundsPad, Math.max(boundsPad, y + (Math.random()*160 - 80)));
+        btn.style.position = 'fixed';
+        btn.style.left = nx + 'px';
+        btn.style.top = ny + 'px';
+        tries++;
+        if (tries > 25){
+          btn.style.pointerEvents = 'none';
+          btn.setAttribute('title', 'Type /login.html in the address bar');
+        }
+      }
+
+      function nearMouse(e){
+        const r = btn.getBoundingClientRect();
+        const near = Math.hypot(e.clientX - (r.left + r.width/2), e.clientY - (r.top + r.height/2)) < 120;
+        if (near) move(e.clientX, e.clientY);
+      }
+
+      btn.addEventListener('mouseenter', e => move(e.clientX, e.clientY));
+      document.addEventListener('mousemove', nearMouse);
+
+      // Block activation
+      btn.addEventListener('click', e => e.preventDefault());
+      btn.addEventListener('keydown', e => e.preventDefault());
+    })();
+
+    /* ---------------------------
+       Parallax background motion
+       (kept from original)
+       --------------------------- */
     const video = document.querySelector('.wall-video.parallax');
     document.addEventListener('mousemove', (e) => {
+      if (!video) return;
       const x = (e.clientX / window.innerWidth - 0.5) * 6;
       const y = (e.clientY / window.innerHeight - 0.5) * 4;
       video.style.transform = `scale(1.04) translate(${x}px, ${y}px)`;
     });
 
-    // Panel logic
+    /* ---------------------------
+       Panels (original behavior)
+       --------------------------- */
     const tabs = document.querySelectorAll('.tab');
     const panelContainer = document.getElementById('panelContainer');
     const panelTitle = document.getElementById('panelTitle');
@@ -320,19 +581,19 @@
     const closeBtn = document.getElementById('closePanel');
 
     const contents = {
-      lessons: { title: "WHAT IS", html: `
+      lessons: { title: "Anime Security Lessons", html: `
         <ul><li> SakuraSec fuses anime storytelling with cybersecurity fundamentals.</li>
-            <li>learn bruteforcing bruhhh</li>
+            <li>entication flaws — learn from SAO.</li>
+        <li>Cookie encoding ≠ encryption.</li>
         <li>Privilege separation — no single god admin.</li></ul>` },
       discovery: { title: "Directory Discovery", html: `
         <ul><li>Check <code>robots.txt</code> for hints.</li>
-        <li>Probe different DIRECTORIES Burpsuite or gobuster your choice</li>
+        <li>Probe /backup /hidden /api.</li>
         <li>Restrict or remove sensitive folders.</li></ul>` },
-      wisdom: { title: "REACH GOAL", html: `
-        <ul><li>try source code, cookie, etccc</li>
-        <li>Cookie encoding ≠ encryption.</li>
+      wisdom: { title: "Cyber Wisdom", html: `
+        <ul><li>Assume breach, log everything.</li>
         <li>Defense-in-depth always wins.</li>
-      </ul>` },
+        <li>Use MFA, update, and educate.</li></ul>` },
       quotes: { title: "Quotes & Ethics", html: `
         <p>“Even the strongest can learn.” — Adapt quickly.<br>
         “Secrets are powerful only when kept.” — Handle creds carefully.<br>
@@ -360,6 +621,208 @@
     });
     closeBtn.addEventListener('click', closePanel);
     document.addEventListener('keyup', (e)=>{ if(e.key==='Escape') closePanel(); });
+
+    /* ---------------------------
+       Shop data & rendering
+       --------------------------- */
+    const PRODUCTS = [
+      { id: 'p1', title: 'Reze Hacker Hoodie', desc: 'Thick, comfy hoodie with soft inner fleece. Reze emblem on the back.', price: 1499, img: 'assets/hoodie.jpg' },
+      { id: 'p2', title: 'SakuraSec Mug', desc: 'Ceramic mug with glow-in-dark Reze glyph.', price: 499, img: 'assets/mug.jpg' },
+      { id: 'p3', title: 'Cyber Ninja Stickers', desc: 'Pack of 12 waterproof stickers for laptop & gear.', price: 199, img: 'assets/sticker.jpg' },
+      { id: 'p4', title: 'Anime Firewall Poster', desc: 'High-quality print, A2 size.', price: 299, img: 'assets/poster.jpg' },
+      { id: 'p5', title: 'Hex Keychain', desc: 'Metal keychain styled like a tiny firewall shard.', price: 249, img: 'assets/keychain.jpg' }
+    ];
+
+    const productGrid = document.getElementById('productGrid');
+    const searchBox = document.getElementById('searchBox');
+    const sortBy = document.getElementById('sortBy');
+
+    function formatRs(v){ return '₹' + v; }
+
+    function renderProducts(list){
+      productGrid.innerHTML = '';
+      list.forEach(p => {
+        const card = document.createElement('article');
+        card.className = 'product-card';
+        card.innerHTML = `
+          <img src="${p.img}" alt="${p.title}" onerror="this.style.opacity=.5; this.alt='image missing';">
+          <h4>${p.title}</h4>
+          <p>${p.desc}</p>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div class="price">${formatRs(p.price)}</div>
+            <button class="add-btn" data-id="${p.id}">Add to Cart</button>
+          </div>
+        `;
+        productGrid.appendChild(card);
+      });
+      attachAddHandlers();
+    }
+
+    function getFiltered(){
+      const q = searchBox.value.trim().toLowerCase();
+      let arr = PRODUCTS.filter(p => p.title.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q));
+      const s = sortBy.value;
+      if(s === 'price-asc') arr = arr.slice().sort((a,b)=>a.price-b.price);
+      if(s === 'price-desc') arr = arr.slice().sort((a,b)=>b.price-a.price);
+      return arr;
+    }
+
+    searchBox.addEventListener('input', () => renderProducts(getFiltered()));
+    sortBy.addEventListener('change', () => renderProducts(getFiltered()));
+
+    /* ---------------------------
+       Cart logic (persistent, simple)
+       --------------------------- */
+    const CART_KEY = 'sakurasec_cart_v1';
+    let cart = JSON.parse(localStorage.getItem(CART_KEY) || '[]');
+
+    const cartToggle = document.getElementById('cartToggle');
+    const cartDrawer = document.getElementById('cartDrawer');
+    const cartItems = document.getElementById('cartItems');
+    const cartCount = document.getElementById('cartCount');
+    const cartSubtotal = document.getElementById('cartSubtotal');
+    const cartShipping = document.getElementById('cartShipping');
+    const cartTotal = document.getElementById('cartTotal');
+    const checkoutBtn = document.getElementById('checkoutBtn');
+
+    function saveCart(){
+      localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    }
+
+    function addToCart(productId){
+      const prod = PRODUCTS.find(p => p.id === productId);
+      if(!prod) return;
+      const existing = cart.find(i => i.id === productId);
+      if(existing) existing.qty += 1;
+      else cart.push({ id: prod.id, title: prod.title, price: prod.price, img: prod.img, qty: 1 });
+      saveCart();
+      renderCart();
+    }
+
+    function setQty(id, qty){
+      const it = cart.find(i => i.id === id);
+      if(!it) return;
+      it.qty = Math.max(0, qty);
+      if(it.qty === 0) cart = cart.filter(i => i.id !== id);
+      saveCart();
+      renderCart();
+    }
+
+    function removeItem(id){
+      cart = cart.filter(i => i.id !== id);
+      saveCart();
+      renderCart();
+    }
+
+    function calcSubtotal(){
+      return cart.reduce((s, i) => s + i.price * i.qty, 0);
+    }
+
+    function renderCart(){
+      cartItems.innerHTML = '';
+      if(cart.length === 0){
+        cartItems.innerHTML = '<div class="empty">Your cart is empty — add some Reze merch!</div>';
+      } else {
+        cart.forEach(item => {
+          const row = document.createElement('div');
+          row.className = 'cart-item';
+          row.innerHTML = `
+            <div class="meta">
+              <img src="${item.img}" alt="${item.title}" onerror="this.style.opacity=.5;this.alt='img missing'">
+              <div style="min-width:120px;">
+                <div style="font-weight:700;">${item.title}</div>
+                <div style="font-size:12px;color:#bcd6e8;">${formatRs(item.price)}</div>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;">
+              <div class="qty-controls">
+                <button class="small-btn" data-action="dec" data-id="${item.id}">−</button>
+                <div style="padding:6px 8px;background:rgba(255,255,255,0.02);border-radius:6px;">${item.qty}</div>
+                <button class="small-btn" data-action="inc" data-id="${item.id}">+</button>
+              </div>
+              <button class="small-btn" style="margin-top:8px;" data-action="remove" data-id="${item.id}">Remove</button>
+            </div>
+          `;
+          cartItems.appendChild(row);
+        });
+      }
+
+      const subtotal = calcSubtotal();
+      const shipping = subtotal > 1000 || subtotal === 0 ? 0 : 49; // simple rule
+      cartSubtotal.textContent = formatRs(subtotal);
+      cartShipping.textContent = formatRs(shipping);
+      cartTotal.textContent = formatRs(subtotal + shipping);
+      cartCount.textContent = cart.reduce((s,i)=>s+i.qty,0);
+
+      // attach qty handlers
+      cartItems.querySelectorAll('[data-action]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const id = btn.dataset.id;
+          const action = btn.dataset.action;
+          if(action === 'inc') setQty(id, (cart.find(x=>x.id===id).qty || 0) + 1);
+          if(action === 'dec') setQty(id, (cart.find(x=>x.id===id).qty || 0) - 1);
+          if(action === 'remove') removeItem(id);
+        });
+      });
+    }
+
+    // Attach add-to-cart buttons (call after product render)
+    function attachAddHandlers(){
+      document.querySelectorAll('.add-btn').forEach(btn => {
+        btn.removeEventListener('click', addBtnHandler);
+        btn.addEventListener('click', addBtnHandler);
+      });
+    }
+    function addBtnHandler(e){
+      const id = e.currentTarget.dataset.id;
+      addToCart(id);
+      // small animation: flash cart toggle
+      cartToggle.animate([{ transform: 'scale(1.05)' }, { transform: 'scale(1)' }], { duration: 180 });
+    }
+
+// ✅ Proper Cart toggle & close logic
+cartToggle.addEventListener('click', () => {
+  cartDrawer.classList.add('open');
+  cartOverlay.classList.add('show');
+  cartDrawer.setAttribute('aria-hidden', 'false');
+});
+
+// ✅ Close on clicking X or overlay
+cartClose.addEventListener('click', closeCart);
+cartOverlay.addEventListener('click', closeCart);
+
+function closeCart() {
+  cartDrawer.classList.remove('open');
+  cartOverlay.classList.remove('show');
+  cartDrawer.setAttribute('aria-hidden', 'true');
+}
+
+
+    // Mock checkout
+    checkoutBtn.addEventListener('click', () => {
+      if(cart.length === 0){
+        alert('Your cart is empty.');
+        return;
+      }
+      // Simulate a simple order — do not send real payments
+      const order = {
+        id: 'ORD' + Date.now(),
+        items: cart,
+        total: calcSubtotal()
+      };
+      // Clear cart after "checkout"
+      cart = [];
+      saveCart();
+      renderCart();
+      alert('Mock order placed: ' + order.id + '\\n(For demo only — no payment was processed.)');
+      cartDrawer.classList.remove('open');
+    });
+
+    /* ---------------------------
+       Init (render products & cart)
+       --------------------------- */
+    renderProducts(PRODUCTS);
+    renderCart();
   </script>
 </body>
 </html>

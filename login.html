@@ -25,28 +25,35 @@
     
   <!-- subtle background kept (reze) -->
   <div class="bg-layer" aria-hidden="true">
-    <img class="bg-img" src="assets/reze_bg.webp" alt="background placeholder">
+    <img class="bg-img" src="assets/reze_bg.jpeg" alt="background placeholder">
     <div class="bg-overlay"></div>
   </div>
   <div class="card">
     <h1>Member Login</h1>
-    <p class="hint">Tip: Use an intercepting proxy and inspect the outgoing request headers.</p>
+    <p class="hint">proxy</p>
 
-    <form id="loginForm" autocomplete="off">
-      <label for="username">Username</label>
-      <input id="username" name="username" placeholder="username" required>
+ <form id="loginForm" autocomplete="off">
+      <label for="username">Cooike?</label>
+       <input id="username" name="username" placeholder="username" required>
 
-      <label for="password">Password</label>
-      <input id="password" name="password" type="password" placeholder="password" required>
+      <label for="pw1">NICKNAME BRUH </label>   
+      <input id="pw1" name="pw1" type="password" placeholder="first password" required>
+
+      <label for="pw2">who am I? </label>
+      <input id="pw2" name="pw2" type="password" placeholder="second password" required>
+
+      <label for="pw3">i died soo young </label>
+      <input id="pw3" name="pw3" type="password" placeholder="third password" required>
 
       <div class="row">
         <button type="submit">Sign in</button>
         <button type="button" id="btnClear">Clear log</button>
       </div>
-      <div id="notice" class="notice muted">Submit once, then check the Request tab in your proxy.</div>
+
+      <div id="notice" class="notice muted">Submit once, then inspect</div>
     </form>
  </div>
- 
+
 
   <!-- Include app.js at end so DOM elements exist -->
   <script src="assets/app.js"></script>
