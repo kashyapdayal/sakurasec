@@ -1,5 +1,2 @@
 User-agent: *
-Disallow: /secret/
-Disallow: /backup/
-Disallow: /old-config/
-Disallow: /.hidden-pass/    # 
+Disallow: /

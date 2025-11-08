@@ -419,8 +419,7 @@
   <div class="wallpaper" aria-hidden="true">
     <video class="wall-video parallax" autoplay muted loop playsinline>
       <source src="assets/reze.webm" type="video/webm">
-      <source src="assets/reze.mp4" type="video/mp4">
-      <img src="assets/reze.webp" alt="Reze fallback">
+      <img src="assets/reze_bg.jpeg" alt="Reze fallback">
     </video>
     <div class="wallpaper-overlay"></div>
   </div>
@@ -436,8 +435,7 @@
 
         <nav class="main-nav right-side-nav">
           <a href="index.html" class="nav-link active">Home</a>
-          <!-- LOGIN BUTTON TRICK LEFT INTACT (unreachable behaviour preserved) -->
-          <a href="index.html" id="trickLogin" class="nav-link" aria-label="Login">Login</a>
+          <a href="login.html" id="loginLink" class="nav-link" aria-label="Login">Login</a>
           <a href="quiz.html" class="nav-link">Quiz</a>
           <a href="console.html" class="nav-link">Console</a>
         </nav>
@@ -684,6 +682,8 @@
     const cartShipping = document.getElementById('cartShipping');
     const cartTotal = document.getElementById('cartTotal');
     const checkoutBtn = document.getElementById('checkoutBtn');
+    const cartOverlay = document.getElementById('cartOverlay');
+    const cartClose = document.getElementById('cartClose');
 
     function saveCart(){
       localStorage.setItem(CART_KEY, JSON.stringify(cart));

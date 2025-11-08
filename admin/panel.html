@@ -60,7 +60,7 @@
 
       if (!token) return denyAccess();
 
-      const attempts = JSON.parse(localStorage.getItem('cyberlearn_login_attempts_v1') || '[]');
+      const attempts = JSON.parse(localStorage.getItem('c_l_a_v1') || '[]');
 
       // Decode cookie set by login (if you used base64). If you used the +3 hex shift encoder,
       // this will show "(invalid encoding)" which is fine for display; username comes from session.
