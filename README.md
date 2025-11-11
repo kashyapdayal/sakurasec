@@ -1,31 +1,35 @@
 # SakuraSec Web CTF
 
-A simple client-side web challenge.
+A simple web-based CTF. Your goal: log in and reach the Admin Panel.
 
-Goal
+## Objective
 
-Log in using the correct credentials to reach the Login Panel.
+Enter the correct username and password on the Login page.
 
-Credentials
+Successfully logging in redirects you to admin/panel.html.
+## Credentials
 
-Username: [USERNAME]
+Username:
 
-Passwords (try any):
+[USERNAME]
+
+
+Passwords (any one works):
 
 [PASSWORD1]
-
 [PASSWORD2]
-
 [PASSWORD3]
 
-Access
+## How to Play
 
-Open the Login page in a browser.
+Open the Login page in your browser.
 
-Enter the username and any of the three passwords.
+Enter the username and one of the passwords.
 
-Successful login redirects to admin/panel.html.
+If successful, you’ll be redirected to the Admin Panel.
 
-Hosting
+## Hosting
 
-Works on static hosts: GitHub Pages, Netlify, or any local server.
+Works perfectly on GitHub Pages, Netlify, or any static server.
+
+Just clone or deploy the repository and open index.html.
